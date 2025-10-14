@@ -146,17 +146,17 @@
     <button onclick="togglePlayer()">🎵 Show/Hide Song</button>
     <div id="yt-container">
       <iframe width="300" height="170"
-        src="https://www.youtube.com/embed/y5JicO2bKec?rel=0"
-        title="Kodaline - Brother"
+        src="https://www.youtube.com/embed/FSKZxOmmw0Y?rel=0&modestbranding=1"
+        title="Kodaline - Brother (Official Audio)"
         frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen>
       </iframe>
     </div>
   </div>
 
   <script>
-    // Floating stars
+    // 🌟 Stars
     for (let i = 0; i < 50; i++) {
       const star = document.createElement('div');
       star.classList.add('star');
@@ -166,7 +166,7 @@
       document.body.appendChild(star);
     }
 
-    // 🎊 Confetti setup
+    // 🎊 Confetti
     const confettiColors = ['#aaa', '#999', '#888', '#bbb', '#ccc', '#5e5e5e'];
     for (let i = 0; i < 100; i++) {
       const confetti = document.createElement('div');
@@ -180,7 +180,7 @@
       document.body.appendChild(confetti);
     }
 
-    // Toggle music video
+    // 🎵 Toggle music
     function togglePlayer() {
       const container = document.getElementById('yt-container');
       container.style.display = container.style.display === 'none' ? 'block' : 'none';
@@ -188,4 +188,5 @@
   </script>
 </body>
 </html>
+
 
