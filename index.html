@@ -52,23 +52,41 @@
       animation: glow 3s ease-in-out infinite alternate;
     }
 
-    p {
-      font-size: 1.4rem;
-      margin-top: 15px;
-      color: #dddddd;
-      opacity: 0.9;
-      animation: fadeIn 3s ease forwards;
+    .reveal-btn {
+      margin-top: 25px;
+      padding: 12px 20px;
+      font-size: 1.1rem;
+      color: white;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      cursor: pointer;
+      backdrop-filter: blur(5px);
+      transition: background 0.3s;
+    }
+
+    .reveal-btn:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .hidden-message {
+      margin-top: 20px;
       max-width: 600px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s ease;
+      font-size: 1.3rem;
+      color: #dddddd;
+    }
+
+    .hidden-message.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     @keyframes glow {
       from { text-shadow: 0 0 10px #ccc, 0 0 20px #999; }
       to { text-shadow: 0 0 20px #eee, 0 0 30px #aaa; }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .star {
@@ -104,32 +122,10 @@
       }
     }
 
-    .music-control {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      z-index: 5;
-    }
-
-    .music-control button {
-      background: rgba(255,255,255,0.1);
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 1rem;
-      backdrop-filter: blur(5px);
-    }
-
-    #yt-container {
-      display: none;
-      margin-top: 10px;
-    }
-
     @media screen and (max-width: 600px) {
       h1 { font-size: 2.5rem; }
-      p { font-size: 1.1rem; }
+      .reveal-btn { font-size: 1rem; }
+      .hidden-message { font-size: 1.1rem; }
     }
   </style>
 </head>
@@ -138,25 +134,16 @@
 
   <div class="content">
     <h1>Happy Birthday, Sis 🐺</h1>
-    <p>To the fiercest and kindest soul I know — may your journey be as wild and beautiful as a moonlit night in the forest. 💙</p>
-  </div>
 
-  <!-- 🎶 Music toggle and player -->
-  <div class="music-control">
-    <button onclick="togglePlayer()">🎵 Show/Hide Song</button>
-    <div id="yt-container">
-      <iframe width="300" height="170"
-        src="https://www.youtube.com/embed/FSKZxOmmw0Y?rel=0&modestbranding=1"
-        title="Kodaline - Brother (Official Audio)"
-        frameborder="0"
-        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-      </iframe>
-    </div>
+    <button class="reveal-btn" onclick="revealMessage()">Click to reveal your birthday message 💌</button>
+
+    <p class="hidden-message" id="birthdayMessage">
+      No matter how wild life gets, I’ll always be your pack. Here’s to the strength in your heart, the kindness in your soul, and the adventure still ahead. Happy birthday. 💙
+    </p>
   </div>
 
   <script>
-    // 🌟 Stars
+    // Stars
     for (let i = 0; i < 50; i++) {
       const star = document.createElement('div');
       star.classList.add('star');
@@ -166,27 +153,26 @@
       document.body.appendChild(star);
     }
 
-    // 🎊 Confetti
+    // Confetti
     const confettiColors = ['#aaa', '#999', '#888', '#bbb', '#ccc', '#5e5e5e'];
     for (let i = 0; i < 100; i++) {
-      const confetti = document.createElement('div');
-      confetti.classList.add('confetti');
-      confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-      confetti.style.left = Math.random() * 100 + 'vw';
-      confetti.style.animationDuration = (5 + Math.random() * 5) + 's';
-      confetti.style.animationDelay = Math.random() * 5 + 's';
-      confetti.style.width = (4 + Math.random() * 6) + 'px';
-      confetti.style.height = (8 + Math.random() * 10) + 'px';
-      document.body.appendChild(confetti);
+      const conf = document.createElement('div');
+      conf.classList.add('confetti');
+      conf.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+      conf.style.left = Math.random() * 100 + 'vw';
+      conf.style.animationDuration = (5 + Math.random() * 5) + 's';
+      conf.style.animationDelay = Math.random() * 5 + 's';
+      conf.style.width = (4 + Math.random() * 6) + 'px';
+      conf.style.height = (8 + Math.random() * 10) + 'px';
+      document.body.appendChild(conf);
     }
 
-    // 🎵 Toggle music
-    function togglePlayer() {
-      const container = document.getElementById('yt-container');
-      container.style.display = container.style.display === 'none' ? 'block' : 'none';
+    // Reveal hidden message
+    function revealMessage() {
+      const msg = document.getElementById('birthdayMessage');
+      msg.classList.add('show');
     }
   </script>
 </body>
 </html>
-
 
