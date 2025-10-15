@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+=<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -70,18 +70,26 @@
     }
 
     .hidden-message {
-      margin-top: 20px;
+      margin-top: 30px;
       max-width: 600px;
       opacity: 0;
       transform: translateY(20px);
       transition: all 1s ease;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       color: #dddddd;
+      line-height: 1.6;
     }
 
     .hidden-message.show {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    .quote {
+      font-style: italic;
+      font-size: 1.1rem;
+      color: #cccccc;
+      margin-top: 15px;
     }
 
     @keyframes glow {
@@ -135,11 +143,12 @@
   <div class="content">
     <h1>Happy Birthday, Sis 🐺</h1>
 
-    <button class="reveal-btn" onclick="revealMessage()">Click to reveal your birthday message 💌</button>
+    <button class="reveal-btn" onclick="revealMessage(this)">Click to reveal your birthday message 💌</button>
 
-    <p class="hidden-message" id="birthdayMessage">
-      No matter how wild life gets, I’ll always be your pack. Here’s to the strength in your heart, the kindness in your soul, and the adventure still ahead. Happy birthday. 💙
-    </p>
+    <div class="hidden-message" id="birthdayMessage">
+      <p>Happy birthday sis, I hope you have a wonderful day and all your wishes come true. 🎉</p>
+      <p class="quote">"May your heart be light, your dreams be big, and your day be unforgettable."</p>
+    </div>
   </div>
 
   <script>
@@ -167,10 +176,11 @@
       document.body.appendChild(conf);
     }
 
-    // Reveal hidden message
-    function revealMessage() {
+    // Reveal hidden message & hide button
+    function revealMessage(button) {
       const msg = document.getElementById('birthdayMessage');
       msg.classList.add('show');
+      button.style.display = 'none';
     }
   </script>
 </body>
