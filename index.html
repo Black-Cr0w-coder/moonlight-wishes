@@ -1,4 +1,4 @@
-=<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -20,16 +20,18 @@
       font-family: 'Poppins', sans-serif;
       color: white;
       position: relative;
+      filter: blur(0.5px); /* Added slight blur effect */
     }
 
     .overlay {
       position: absolute;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.6); /* Darkened overlay for better contrast */
       top: 0;
       left: 0;
       z-index: 1;
+      filter: blur(0.5px); /* Slight blur to focus on the content */
     }
 
     .content {
@@ -46,27 +48,35 @@
 
     h1 {
       font-family: 'Great Vibes', cursive;
-      font-size: 3.5rem;
+      font-size: 3.8rem; /* Slightly larger font */
       color: #f2f2f2;
-      text-shadow: 0 0 20px #aaa;
+      text-shadow: 0 0 20px #eee, 0 0 30px #fff; /* Enhanced glowing effect */
       animation: glow 3s ease-in-out infinite alternate;
     }
 
     .reveal-btn {
       margin-top: 25px;
-      padding: 12px 20px;
-      font-size: 1.1rem;
+      padding: 14px 25px;
+      font-size: 1.2rem;
       color: white;
       background-color: rgba(255, 255, 255, 0.1);
       border: 1px solid #ccc;
-      border-radius: 10px;
+      border-radius: 25px;
       cursor: pointer;
       backdrop-filter: blur(5px);
-      transition: background 0.3s;
+      transition: background 0.3s, transform 0.3s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .reveal-btn:hover {
       background-color: rgba(255, 255, 255, 0.2);
+      transform: scale(1.1); /* Subtle scale effect */
+    }
+
+    .reveal-btn i {
+      margin-right: 8px;
     }
 
     .hidden-message {
@@ -74,7 +84,7 @@
       max-width: 600px;
       opacity: 0;
       transform: translateY(20px);
-      transition: all 1s ease;
+      transition: all 1.5s ease;
       font-size: 1.4rem;
       color: #dddddd;
       line-height: 1.6;
@@ -94,7 +104,7 @@
 
     @keyframes glow {
       from { text-shadow: 0 0 10px #ccc, 0 0 20px #999; }
-      to { text-shadow: 0 0 20px #eee, 0 0 30px #aaa; }
+      to { text-shadow: 0 0 25px #fff, 0 0 40px #aaa; }
     }
 
     .star {
@@ -132,7 +142,7 @@
 
     @media screen and (max-width: 600px) {
       h1 { font-size: 2.5rem; }
-      .reveal-btn { font-size: 1rem; }
+      .reveal-btn { font-size: 1rem; padding: 10px 15px; }
       .hidden-message { font-size: 1.1rem; }
     }
   </style>
@@ -143,7 +153,9 @@
   <div class="content">
     <h1>Happy Birthday, Sis 🐺</h1>
 
-    <button class="reveal-btn" onclick="revealMessage(this)">Click to reveal your birthday message 💌</button>
+    <button class="reveal-btn" onclick="revealMessage(this)">
+      <i class="fas fa-envelope"></i> Click to reveal your birthday message 💌
+    </button>
 
     <div class="hidden-message" id="birthdayMessage">
       <p>Happy birthday, sis. I hope today wraps you in love, laughter, and everything that makes your soul feel light. You deserve a world of happiness, and I hope every wish you make today finds its way to you</p>
@@ -151,6 +163,7 @@
     </div>
   </div>
 
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- For the envelope icon -->
   <script>
     // Stars
     for (let i = 0; i < 50; i++) {
@@ -185,4 +198,3 @@
   </script>
 </body>
 </html>
-
