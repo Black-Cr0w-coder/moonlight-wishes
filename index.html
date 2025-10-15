@@ -20,18 +20,17 @@
       font-family: 'Poppins', sans-serif;
       color: white;
       position: relative;
-      filter: blur(0.5px); /* Added slight blur effect */
+      background-size: cover;
     }
 
     .overlay {
       position: absolute;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.6); /* Darkened overlay for better contrast */
+      background: rgba(0, 0, 0, 0.7); /* Stronger dark overlay */
       top: 0;
       left: 0;
       z-index: 1;
-      filter: blur(0.5px); /* Slight blur to focus on the content */
     }
 
     .content {
@@ -48,31 +47,38 @@
 
     h1 {
       font-family: 'Great Vibes', cursive;
-      font-size: 3.8rem; /* Slightly larger font */
-      color: #f2f2f2;
-      text-shadow: 0 0 20px #eee, 0 0 30px #fff; /* Enhanced glowing effect */
+      font-size: 4rem;
+      background: linear-gradient(45deg, #ff6ec7, #ffcc00); /* Gradient Text */
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 15px #fff, 0 0 25px #ff66b2, 0 0 50px #ff66b2; /* Glowing effect */
       animation: glow 3s ease-in-out infinite alternate;
+      margin-bottom: 30px;
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 0 0 15px #ff66b2, 0 0 25px #ff66b2; }
+      100% { text-shadow: 0 0 30px #ff66b2, 0 0 50px #ff66b2; }
     }
 
     .reveal-btn {
-      margin-top: 25px;
-      padding: 14px 25px;
+      padding: 14px 30px;
       font-size: 1.2rem;
       color: white;
-      background-color: rgba(255, 255, 255, 0.1);
-      border: 1px solid #ccc;
-      border-radius: 25px;
+      background: linear-gradient(45deg, #ff6ec7, #ffcc00);
+      border: 2px solid #fff;
+      border-radius: 30px;
       cursor: pointer;
-      backdrop-filter: blur(5px);
-      transition: background 0.3s, transform 0.3s ease-in-out;
+      transition: transform 0.3s ease, background-color 0.3s ease;
       display: flex;
       align-items: center;
       justify-content: center;
+      backdrop-filter: blur(10px);
     }
 
     .reveal-btn:hover {
+      transform: scale(1.1);
       background-color: rgba(255, 255, 255, 0.2);
-      transform: scale(1.1); /* Subtle scale effect */
     }
 
     .reveal-btn i {
@@ -85,65 +91,90 @@
       opacity: 0;
       transform: translateY(20px);
       transition: all 1.5s ease;
-      font-size: 1.4rem;
-      color: #dddddd;
-      line-height: 1.6;
+      font-size: 1.5rem;
+      color: #ddd;
+      line-height: 1.7;
+      animation: slideIn 1s forwards, fadeIn 1.5s forwards;
     }
 
-    .hidden-message.show {
-      opacity: 1;
-      transform: translateY(0);
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
     }
 
     .quote {
       font-style: italic;
-      font-size: 1.1rem;
-      color: #cccccc;
-      margin-top: 15px;
+      font-size: 1.2rem;
+      color: #eee;
+      margin-top: 20px;
     }
 
-    @keyframes glow {
-      from { text-shadow: 0 0 10px #ccc, 0 0 20px #999; }
-      to { text-shadow: 0 0 25px #fff, 0 0 40px #aaa; }
+    .balloon {
+      position: absolute;
+      width: 50px;
+      height: 80px;
+      background-color: #ff66b2;
+      border-radius: 50%;
+      animation: float 5s ease-in-out infinite;
     }
 
+    .balloon::after {
+      content: "";
+      position: absolute;
+      width: 6px;
+      height: 30px;
+      background-color: #fff;
+      bottom: -30px;
+      left: 50%;
+      margin-left: -3px;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh);
+      }
+      100% {
+        transform: translateY(-50vh);
+      }
+    }
+
+    /* Stars */
     .star {
       position: absolute;
-      width: 2px;
-      height: 2px;
+      width: 3px;
+      height: 3px;
       background: white;
-      opacity: 0.8;
       border-radius: 50%;
       animation: twinkle 4s infinite ease-in-out;
     }
 
     @keyframes twinkle {
-      0%, 100% { opacity: 0.3; transform: translateY(0); }
-      50% { opacity: 1; transform: translateY(-10px); }
-    }
-
-    .confetti {
-      position: absolute;
-      width: 8px;
-      height: 12px;
-      opacity: 0.7;
-      border-radius: 2px;
-      animation: fall linear infinite;
-    }
-
-    @keyframes fall {
-      0% {
-        transform: translateY(-10vh) rotate(0deg);
-      }
-      100% {
-        transform: translateY(110vh) rotate(360deg);
-      }
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
     }
 
     @media screen and (max-width: 600px) {
-      h1 { font-size: 2.5rem; }
-      .reveal-btn { font-size: 1rem; padding: 10px 15px; }
-      .hidden-message { font-size: 1.1rem; }
+      h1 {
+        font-size: 2.8rem;
+      }
+      .reveal-btn {
+        font-size: 1rem;
+        padding: 12px 20px;
+      }
+      .hidden-message {
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
@@ -158,12 +189,18 @@
     </button>
 
     <div class="hidden-message" id="birthdayMessage">
-      <p>Happy birthday, sis. I hope today wraps you in love, laughter, and everything that makes your soul feel light. You deserve a world of happiness, and I hope every wish you make today finds its way to you</p>
+      <p>Happy birthday, sis! I hope today wraps you in love, laughter, and everything that makes your soul feel light. You deserve a world of happiness, and I hope every wish you make today finds its way to you.</p>
       <p class="quote">"May your heart be light, your dreams be big, and your day be unforgettable."</p>
     </div>
   </div>
 
-  <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- For the envelope icon -->
+  <!-- Balloon Elements -->
+  <div class="balloon" style="top: 30%; left: 20%; animation-delay: 0s;"></div>
+  <div class="balloon" style="top: 50%; left: 60%; animation-delay: 1s;"></div>
+  <div class="balloon" style="top: 10%; left: 80%; animation-delay: 2s;"></div>
+
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
   <script>
     // Stars
     for (let i = 0; i < 50; i++) {
@@ -173,20 +210,6 @@
       star.style.left = Math.random() * 100 + '%';
       star.style.animationDelay = Math.random() * 5 + 's';
       document.body.appendChild(star);
-    }
-
-    // Confetti
-    const confettiColors = ['#aaa', '#999', '#888', '#bbb', '#ccc', '#5e5e5e'];
-    for (let i = 0; i < 100; i++) {
-      const conf = document.createElement('div');
-      conf.classList.add('confetti');
-      conf.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-      conf.style.left = Math.random() * 100 + 'vw';
-      conf.style.animationDuration = (5 + Math.random() * 5) + 's';
-      conf.style.animationDelay = Math.random() * 5 + 's';
-      conf.style.width = (4 + Math.random() * 6) + 'px';
-      conf.style.height = (8 + Math.random() * 10) + 'px';
-      document.body.appendChild(conf);
     }
 
     // Reveal hidden message & hide button
