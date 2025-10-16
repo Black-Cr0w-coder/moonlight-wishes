@@ -70,7 +70,6 @@
       margin-bottom: 25px;
     }
 
-    /* slightly purple-toned glow animation */
     @keyframes glow {
       0% { text-shadow: 0 0 15px #4a148c, 0 0 25px #0077ff; }
       100% { text-shadow: 0 0 30px #00ffff, 0 0 50px #4a148c; }
@@ -80,7 +79,7 @@
       padding: 14px 30px;
       font-size: 1.1rem;
       color: white;
-      background: linear-gradient(45deg, #311b92, #00c6fb); /* deep purple + blue */
+      background: linear-gradient(45deg, #311b92, #00c6fb);
       border: none;
       border-radius: 30px;
       cursor: pointer;
@@ -106,7 +105,7 @@
       font-size: 1.4rem;
       color: #cfd8dc;
       line-height: 1.7;
-      display: none; /* Start hidden */
+      display: none;
     }
 
     .hidden-message.show {
@@ -141,6 +140,7 @@
     /* Confetti (cool metallic + purple tones) */
     .confetti {
       position: absolute;
+      top: 0; /* start from top */
       width: 8px;
       height: 12px;
       opacity: 0.7;
@@ -171,8 +171,8 @@
     </button>
 
     <div class="hidden-message" id="birthdayMessage">
-      <p>Hey sis — happy birthday! 🎉 You’ve always been strong, funny, and unapologetically yourself. I hope today’s all about doing what makes <em>you</em> feel alive — whether it’s blasting your favorite songs, hanging with your crew, or just vibing in peace.</p>
-      <p class="quote">"Keep being you — bold, brave, and a little wild. The world needs that energy."</p>
+      <p>Hey sis — happy birthday! You’ve always had that mix of strength and heart that people don’t forget. No matter what comes your way, you handle it like the boss you are. Keep moving forward — the world’s better with you in it.</p>
+      <p class="quote">"Wolves don’t chase validation — they just keep running."</p>
     </div>
   </div>
 
@@ -198,6 +198,7 @@
       conf.style.animationDelay = Math.random() * 5 + 's';
       conf.style.width = (4 + Math.random() * 6) + 'px';
       conf.style.height = (8 + Math.random() * 10) + 'px';
+      conf.style.transform = `translateX(${Math.random() * 40 - 20}px)`; // random drift
       document.body.appendChild(conf);
     }
 
@@ -207,7 +208,7 @@
       const btn = document.getElementById('revealBtn');
       msg.classList.add('show');
       btn.style.opacity = '0';
-      setTimeout(() => btn.style.display = 'none', 400); // hide button smoothly
+      setTimeout(() => btn.style.display = 'none', 400);
     }
   </script>
 </body>
