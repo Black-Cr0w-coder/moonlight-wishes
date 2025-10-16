@@ -23,11 +23,25 @@
       background-size: cover;
     }
 
+    /* purple ambient glow behind everything */
+    body::before {
+      content: '';
+      position: absolute;
+      width: 120%;
+      height: 120%;
+      top: -10%;
+      left: -10%;
+      background: radial-gradient(circle at center, rgba(50, 0, 80, 0.35), transparent 70%);
+      z-index: 0;
+      filter: blur(90px);
+      pointer-events: none;
+    }
+
     .overlay {
       position: absolute;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(30, 0, 45, 0.7); /* dark purple overlay */
       top: 0;
       left: 0;
       z-index: 1;
@@ -56,16 +70,17 @@
       margin-bottom: 25px;
     }
 
+    /* slightly purple-toned glow animation */
     @keyframes glow {
-      0% { text-shadow: 0 0 15px #0077ff, 0 0 25px #00bfff; }
-      100% { text-shadow: 0 0 30px #00ffff, 0 0 50px #00bfff; }
+      0% { text-shadow: 0 0 15px #4a148c, 0 0 25px #0077ff; }
+      100% { text-shadow: 0 0 30px #00ffff, 0 0 50px #4a148c; }
     }
 
     .reveal-btn {
       padding: 14px 30px;
       font-size: 1.1rem;
       color: white;
-      background: linear-gradient(45deg, #005bea, #00c6fb);
+      background: linear-gradient(45deg, #311b92, #00c6fb); /* deep purple + blue */
       border: none;
       border-radius: 30px;
       cursor: pointer;
@@ -74,12 +89,12 @@
       align-items: center;
       justify-content: center;
       backdrop-filter: blur(10px);
-      box-shadow: 0 0 10px rgba(0, 200, 255, 0.5);
+      box-shadow: 0 0 15px rgba(75, 0, 130, 0.6);
     }
 
     .reveal-btn:hover {
       transform: scale(1.08);
-      box-shadow: 0 0 20px rgba(0, 200, 255, 0.8);
+      box-shadow: 0 0 25px rgba(90, 0, 160, 0.9);
     }
 
     .hidden-message {
@@ -123,7 +138,7 @@
       50% { opacity: 1; }
     }
 
-    /* Confetti (cool metallic tones) */
+    /* Confetti (cool metallic + purple tones) */
     .confetti {
       position: absolute;
       width: 8px;
@@ -156,7 +171,7 @@
     </button>
 
     <div class="hidden-message" id="birthdayMessage">
-      <p>Hey sis — happy birthday! 🎉 You’ve always been strong, funny, and unapologetically yourself. I hope today’s all about doing what makes *you* feel alive — whether it’s blasting your favorite songs, hanging with your crew, or just vibing in peace.</p>
+      <p>Hey sis — happy birthday! 🎉 You’ve always been strong, funny, and unapologetically yourself. I hope today’s all about doing what makes <em>you</em> feel alive — whether it’s blasting your favorite songs, hanging with your crew, or just vibing in peace.</p>
       <p class="quote">"Keep being you — bold, brave, and a little wild. The world needs that energy."</p>
     </div>
   </div>
@@ -172,8 +187,8 @@
       document.body.appendChild(star);
     }
 
-    // Confetti
-    const confettiColors = ['#00bcd4', '#00e5ff', '#9e9e9e', '#b0bec5', '#607d8b'];
+    // Confetti with dark purple tones
+    const confettiColors = ['#00bcd4', '#00e5ff', '#9e9e9e', '#4a148c', '#311b92', '#607d8b'];
     for (let i = 0; i < 80; i++) {
       const conf = document.createElement('div');
       conf.classList.add('confetti');
@@ -197,3 +212,4 @@
   </script>
 </body>
 </html>
+
