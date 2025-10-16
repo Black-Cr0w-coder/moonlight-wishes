@@ -16,7 +16,7 @@
     body {
       min-height: 100vh;
       overflow: hidden;
-      background: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
       font-family: 'Poppins', sans-serif;
       color: white;
       position: relative;
@@ -27,7 +27,7 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.7); /* Stronger dark overlay */
+      background: rgba(0, 0, 0, 0.6);
       top: 0;
       left: 0;
       z-index: 1;
@@ -48,113 +48,72 @@
     h1 {
       font-family: 'Great Vibes', cursive;
       font-size: 4rem;
-      background: linear-gradient(45deg, #ff6ec7, #ffcc00); /* Gradient Text */
+      background: linear-gradient(45deg, #00d4ff, #0077ff);
       -webkit-background-clip: text;
       color: transparent;
-      text-shadow: 0 0 15px #fff, 0 0 25px #ff66b2, 0 0 50px #ff66b2; /* Glowing effect */
+      text-shadow: 0 0 20px #00bfff, 0 0 40px #0088ff;
       animation: glow 3s ease-in-out infinite alternate;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
 
     @keyframes glow {
-      0% { text-shadow: 0 0 15px #ff66b2, 0 0 25px #ff66b2; }
-      100% { text-shadow: 0 0 30px #ff66b2, 0 0 50px #ff66b2; }
+      0% { text-shadow: 0 0 15px #0077ff, 0 0 25px #00bfff; }
+      100% { text-shadow: 0 0 30px #00ffff, 0 0 50px #00bfff; }
     }
 
     .reveal-btn {
       padding: 14px 30px;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: white;
-      background: linear-gradient(45deg, #ff6ec7, #ffcc00);
-      border: 2px solid #fff;
+      background: linear-gradient(45deg, #005bea, #00c6fb);
+      border: none;
       border-radius: 30px;
       cursor: pointer;
-      transition: transform 0.3s ease, background-color 0.3s ease;
+      transition: transform 0.3s ease, opacity 0.4s ease;
       display: flex;
       align-items: center;
       justify-content: center;
       backdrop-filter: blur(10px);
+      box-shadow: 0 0 10px rgba(0, 200, 255, 0.5);
     }
 
     .reveal-btn:hover {
-      transform: scale(1.1);
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .reveal-btn i {
-      margin-right: 8px;
+      transform: scale(1.08);
+      box-shadow: 0 0 20px rgba(0, 200, 255, 0.8);
     }
 
     .hidden-message {
       margin-top: 30px;
-      max-width: 600px;
+      max-width: 650px;
       opacity: 0;
-      transform: translateY(20px);
-      transition: all 1.5s ease;
-      font-size: 1.5rem;
-      color: #ddd;
+      transform: translateY(30px);
+      transition: all 1.2s ease;
+      font-size: 1.4rem;
+      color: #cfd8dc;
       line-height: 1.7;
-      animation: slideIn 1s forwards, fadeIn 1.5s forwards;
+      display: none; /* Start hidden */
     }
 
-    @keyframes slideIn {
-      from {
-        transform: translateX(100%);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
+    .hidden-message.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .quote {
       font-style: italic;
-      font-size: 1.2rem;
-      color: #eee;
-      margin-top: 20px;
-    }
-
-    .balloon {
-      position: absolute;
-      width: 50px;
-      height: 80px;
-      background-color: #ff66b2;
-      border-radius: 50%;
-      animation: float 5s ease-in-out infinite;
-    }
-
-    .balloon::after {
-      content: "";
-      position: absolute;
-      width: 6px;
-      height: 30px;
-      background-color: #fff;
-      bottom: -30px;
-      left: 50%;
-      margin-left: -3px;
-    }
-
-    @keyframes float {
-      0% {
-        transform: translateY(100vh);
-      }
-      100% {
-        transform: translateY(-50vh);
-      }
+      font-size: 1.1rem;
+      color: #9fc9ff;
+      margin-top: 15px;
     }
 
     /* Stars */
     .star {
       position: absolute;
-      width: 3px;
-      height: 3px;
+      width: 2px;
+      height: 2px;
       background: white;
+      opacity: 0.8;
       border-radius: 50%;
       animation: twinkle 4s infinite ease-in-out;
     }
@@ -164,17 +123,25 @@
       50% { opacity: 1; }
     }
 
+    /* Confetti (cool metallic tones) */
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 12px;
+      opacity: 0.7;
+      border-radius: 2px;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10vh) rotate(0deg); }
+      100% { transform: translateY(110vh) rotate(360deg); }
+    }
+
     @media screen and (max-width: 600px) {
-      h1 {
-        font-size: 2.8rem;
-      }
-      .reveal-btn {
-        font-size: 1rem;
-        padding: 12px 20px;
-      }
-      .hidden-message {
-        font-size: 1.2rem;
-      }
+      h1 { font-size: 2.8rem; }
+      .reveal-btn { font-size: 1rem; padding: 12px 20px; }
+      .hidden-message { font-size: 1.1rem; }
     }
   </style>
 </head>
@@ -184,22 +151,15 @@
   <div class="content">
     <h1>Happy Birthday, Sis 🐺</h1>
 
-    <button class="reveal-btn" onclick="revealMessage(this)">
-      <i class="fas fa-envelope"></i> Click to reveal your birthday message 💌
+    <button class="reveal-btn" id="revealBtn" onclick="revealMessage()">
+      Click to reveal your birthday message 💬
     </button>
 
     <div class="hidden-message" id="birthdayMessage">
-      <p>Happy birthday, sis! I hope today wraps you in love, laughter, and everything that makes your soul feel light. You deserve a world of happiness, and I hope every wish you make today finds its way to you.</p>
-      <p class="quote">"May your heart be light, your dreams be big, and your day be unforgettable."</p>
+      <p>Hey sis — happy birthday! 🎉 You’ve always been strong, funny, and unapologetically yourself. I hope today’s all about doing what makes *you* feel alive — whether it’s blasting your favorite songs, hanging with your crew, or just vibing in peace.</p>
+      <p class="quote">"Keep being you — bold, brave, and a little wild. The world needs that energy."</p>
     </div>
   </div>
-
-  <!-- Balloon Elements -->
-  <div class="balloon" style="top: 30%; left: 20%; animation-delay: 0s;"></div>
-  <div class="balloon" style="top: 50%; left: 60%; animation-delay: 1s;"></div>
-  <div class="balloon" style="top: 10%; left: 80%; animation-delay: 2s;"></div>
-
-  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
   <script>
     // Stars
@@ -212,11 +172,27 @@
       document.body.appendChild(star);
     }
 
-    // Reveal hidden message & hide button
-    function revealMessage(button) {
+    // Confetti
+    const confettiColors = ['#00bcd4', '#00e5ff', '#9e9e9e', '#b0bec5', '#607d8b'];
+    for (let i = 0; i < 80; i++) {
+      const conf = document.createElement('div');
+      conf.classList.add('confetti');
+      conf.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+      conf.style.left = Math.random() * 100 + 'vw';
+      conf.style.animationDuration = (5 + Math.random() * 5) + 's';
+      conf.style.animationDelay = Math.random() * 5 + 's';
+      conf.style.width = (4 + Math.random() * 6) + 'px';
+      conf.style.height = (8 + Math.random() * 10) + 'px';
+      document.body.appendChild(conf);
+    }
+
+    // Reveal message & hide button
+    function revealMessage() {
       const msg = document.getElementById('birthdayMessage');
+      const btn = document.getElementById('revealBtn');
       msg.classList.add('show');
-      button.style.display = 'none';
+      btn.style.opacity = '0';
+      setTimeout(() => btn.style.display = 'none', 400); // hide button smoothly
     }
   </script>
 </body>
