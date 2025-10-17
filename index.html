@@ -23,7 +23,7 @@
       background-size: cover;
     }
 
-    /* purple ambient glow behind everything */
+    /* Purple ambient glow behind everything */
     body::before {
       content: '';
       position: absolute;
@@ -41,7 +41,7 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      background: rgba(30, 0, 45, 0.7); /* dark purple overlay */
+      background: rgba(30, 0, 45, 0.7); /* Dark purple overlay */
       top: 0;
       left: 0;
       z-index: 1;
@@ -140,7 +140,7 @@
     /* Confetti (cool metallic + purple tones) */
     .confetti {
       position: absolute;
-      top: 0; /* start from top */
+      top: -10vh; /* Start slightly above the screen */
       width: 8px;
       height: 12px;
       opacity: 0.7;
@@ -149,8 +149,12 @@
     }
 
     @keyframes fall {
-      0% { transform: translateY(-10vh) rotate(0deg); }
-      100% { transform: translateY(110vh) rotate(360deg); }
+      0% { 
+        transform: translateY(-10vh) rotate(0deg); /* Start above the viewport */
+      }
+      100% { 
+        transform: translateY(100vh) rotate(360deg); /* End below the viewport */
+      }
     }
 
     @media screen and (max-width: 600px) {
@@ -187,18 +191,18 @@
       document.body.appendChild(star);
     }
 
-    // Confetti with dark purple tones
+    // Confetti with more varied speed and drift
     const confettiColors = ['#00bcd4', '#00e5ff', '#9e9e9e', '#4a148c', '#311b92', '#607d8b'];
     for (let i = 0; i < 80; i++) {
       const conf = document.createElement('div');
       conf.classList.add('confetti');
       conf.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-      conf.style.left = Math.random() * 100 + 'vw';
-      conf.style.animationDuration = (5 + Math.random() * 5) + 's';
-      conf.style.animationDelay = Math.random() * 5 + 's';
-      conf.style.width = (4 + Math.random() * 6) + 'px';
-      conf.style.height = (8 + Math.random() * 10) + 'px';
-      conf.style.transform = `translateX(${Math.random() * 40 - 20}px)`; // random drift
+      conf.style.left = Math.random() * 100 + 'vw'; // Random left position
+      conf.style.animationDuration = (5 + Math.random() * 5) + 's'; // Random speed
+      conf.style.animationDelay = Math.random() * 5 + 's'; // Random start delay
+      conf.style.width = (4 + Math.random() * 6) + 'px'; // Random width
+      conf.style.height = (8 + Math.random() * 10) + 'px'; // Random height
+      conf.style.transform = `translateX(${Math.random() * 40 - 20}px)`; // Random horizontal drift
       document.body.appendChild(conf);
     }
 
@@ -213,4 +217,5 @@
   </script>
 </body>
 </html>
+
 
