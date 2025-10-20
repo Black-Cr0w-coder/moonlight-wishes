@@ -24,10 +24,9 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      z-index: -1;
+      z-index: -2;
       overflow: hidden;
-      /* Dark subtle overlay to improve image visibility */
-      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6));
+      background: #000; /* fallback black background behind images */
     }
 
     /* Each slide */
@@ -37,7 +36,7 @@
       height: 100vh;
       background-repeat: no-repeat;
       background-position: center center;
-      background-size: cover; /* Changed from contain to cover */
+      background-size: contain; /* show full image without cropping */
       opacity: 0;
       transition: opacity 1.5s ease-in-out;
     }
@@ -46,6 +45,18 @@
     .bgSlide.active {
       opacity: 1;
       z-index: 1;
+    }
+
+    /* Dark overlay for readability */
+    .background-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      background: rgba(0, 0, 0, 0.6);
+      pointer-events: none;
     }
 
     .content {
@@ -190,6 +201,9 @@
     <div class="bgSlide" style="background-image: url('Image 17.jpg');"></div>
     <div class="bgSlide" style="background-image: url('Image 18.jpg');"></div>
   </div>
+
+  <!-- Overlay to darken images for text visibility -->
+  <div class="background-overlay"></div>
 
   <div class="content">
     <h1>Happy Birthday, Sis 🐺</h1>
