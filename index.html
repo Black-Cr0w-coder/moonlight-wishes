@@ -20,10 +20,12 @@
       color: white;
       position: relative;
       background-size: cover;
-      transition: background 1.5s ease-in-out; /* Smooth transition between backgrounds */
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: background-image 1.5s ease-in-out;
     }
 
-    /* Purple ambient glow behind everything */
+    /* Purple ambient glow */
     body::before {
       content: '';
       position: absolute;
@@ -41,7 +43,7 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      background: rgba(30, 0, 45, 0.7); /* Dark purple overlay */
+      background: rgba(30, 0, 45, 0.7);
       top: 0;
       left: 0;
       z-index: 1;
@@ -121,7 +123,6 @@
       margin-top: 15px;
     }
 
-    /* Stars */
     .star {
       position: absolute;
       width: 2px;
@@ -137,10 +138,9 @@
       50% { opacity: 1; }
     }
 
-    /* Confetti (cool metallic + purple tones) */
     .confetti {
       position: absolute;
-      top: -10vh; /* Start slightly above the screen */
+      top: -10vh;
       width: 8px;
       height: 12px;
       opacity: 0.7;
@@ -149,12 +149,8 @@
     }
 
     @keyframes fall {
-      0% { 
-        transform: translateY(-10vh) rotate(0deg); /* Start above the viewport */
-      }
-      100% { 
-        transform: translateY(100vh) rotate(360deg); /* End below the viewport */
-      }
+      0% { transform: translateY(-10vh) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); }
     }
 
     @media screen and (max-width: 600px) {
@@ -181,23 +177,22 @@
   </div>
 
   <script>
-    // Image slideshow
+    // Background slideshow
     const images = [];
     for (let i = 1; i <= 18; i++) {
-      images.push(`images/Image ${i}.jpg`); // Adjust the path if your images are in a different folder
+      images.push(`images/Image ${i}.jpg`); // Make sure these paths are correct
     }
+
     let currentImageIndex = 0;
 
     function changeBackgroundImage() {
-      document.body.style.backgroundImage = `url(${images[currentImageIndex]})`;
-      currentImageIndex = (currentImageIndex + 1) % images.length; // Loop back to the first image after the last one
+      document.body.style.backgroundImage = `url('${images[currentImageIndex]}')`;
+      currentImageIndex = (currentImageIndex + 1) % images.length;
     }
 
-    // Start the slideshow with an interval
-    setInterval(changeBackgroundImage, 5000); // Change every 5 seconds
-
-    // Initial background setup
-    changeBackgroundImage();
+    // Start the slideshow
+    setInterval(changeBackgroundImage, 5000);
+    changeBackgroundImage(); // Show first image immediately
 
     // Stars
     for (let i = 0; i < 50; i++) {
@@ -209,22 +204,22 @@
       document.body.appendChild(star);
     }
 
-    // Confetti with more varied speed and drift
+    // Confetti
     const confettiColors = ['#00bcd4', '#00e5ff', '#9e9e9e', '#4a148c', '#311b92', '#607d8b'];
     for (let i = 0; i < 80; i++) {
       const conf = document.createElement('div');
       conf.classList.add('confetti');
       conf.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-      conf.style.left = Math.random() * 100 + 'vw'; // Random left position
-      conf.style.animationDuration = (5 + Math.random() * 5) + 's'; // Random speed
-      conf.style.animationDelay = Math.random() * 5 + 's'; // Random start delay
-      conf.style.width = (4 + Math.random() * 6) + 'px'; // Random width
-      conf.style.height = (8 + Math.random() * 10) + 'px'; // Random height
-      conf.style.transform = `translateX(${Math.random() * 40 - 20}px)`; // Random horizontal drift
+      conf.style.left = Math.random() * 100 + 'vw';
+      conf.style.animationDuration = (5 + Math.random() * 5) + 's';
+      conf.style.animationDelay = Math.random() * 5 + 's';
+      conf.style.width = (4 + Math.random() * 6) + 'px';
+      conf.style.height = (8 + Math.random() * 10) + 'px';
+      conf.style.transform = `translateX(${Math.random() * 40 - 20}px)`;
       document.body.appendChild(conf);
     }
 
-    // Reveal message & hide button
+    // Reveal message
     function revealMessage() {
       const msg = document.getElementById('birthdayMessage');
       const btn = document.getElementById('revealBtn');
@@ -235,3 +230,4 @@
   </script>
 </body>
 </html>
+
