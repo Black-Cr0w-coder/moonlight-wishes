@@ -7,53 +7,81 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500&display=swap');
 
-    /* Reset and base */
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
     html, body {
+      margin: 0;
+      padding: 0;
       height: 100%;
       overflow: hidden;
       font-family: 'Poppins', sans-serif;
-      background: transparent;
       color: white;
+      background: transparent;
     }
 
-    /* Slideshow container behind everything */
+    /* Background slideshow container */
     .background-slideshow {
       position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       z-index: -1;
       overflow: hidden;
     }
 
+    /* Each slide styling */
     .bgSlide {
       position: absolute;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       background-size: cover;
       background-position: center center;
       opacity: 0;
       transition: opacity 1.5s ease-in-out;
     }
 
+    /* Show active slide */
     .bgSlide.active {
       opacity: 1;
       z-index: 1;
     }
 
-    /* Foreground content */
+    /* Purple ambient glow behind content */
+    body::before {
+      content: '';
+      position: fixed;
+      width: 120%;
+      height: 120%;
+      top: -10%;
+      left: -10%;
+      background: radial-gradient(circle at center, rgba(50, 0, 80, 0.35), transparent 70%);
+      z-index: 0;
+      filter: blur(90px);
+      pointer-events: none;
+    }
+
+    /* Dark overlay to dim background */
+    .overlay {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(30, 0, 45, 0.7);
+      top: 0;
+      left: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Main content styling */
     .content {
       position: relative;
-      z-index: 10;
-      height: 100vh;
+      z-index: 2;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      height: 100vh;
       text-align: center;
-      padding: 0 20px;
+      padding: 20px;
     }
 
     h1 {
@@ -72,7 +100,7 @@
       100% { text-shadow: 0 0 30px #00ffff, 0 0 50px #4a148c; }
     }
 
-    button.reveal-btn {
+    .reveal-btn {
       padding: 14px 30px;
       font-size: 1.1rem;
       color: white;
@@ -80,15 +108,16 @@
       border: none;
       border-radius: 30px;
       cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.4s ease;
+      transition: transform 0.3s ease, opacity 0.4s ease;
       display: flex;
       align-items: center;
       justify-content: center;
       backdrop-filter: blur(10px);
       box-shadow: 0 0 15px rgba(75, 0, 130, 0.6);
+      z-index: 2;
     }
 
-    button.reveal-btn:hover {
+    .reveal-btn:hover {
       transform: scale(1.08);
       box-shadow: 0 0 25px rgba(90, 0, 160, 0.9);
     }
@@ -96,13 +125,14 @@
     .hidden-message {
       margin-top: 30px;
       max-width: 650px;
-      font-size: 1.4rem;
-      line-height: 1.7;
-      color: #cfd8dc;
       opacity: 0;
       transform: translateY(30px);
-      transition: opacity 1.2s ease, transform 1.2s ease;
+      transition: all 1.2s ease;
+      font-size: 1.4rem;
+      color: #cfd8dc;
+      line-height: 1.7;
       display: none;
+      z-index: 2;
     }
 
     .hidden-message.show {
@@ -120,13 +150,14 @@
 
     /* Stars */
     .star {
-      position: absolute;
+      position: fixed;
       width: 2px;
       height: 2px;
       background: white;
       opacity: 0.8;
       border-radius: 50%;
       animation: twinkle 4s infinite ease-in-out;
+      z-index: 0;
     }
 
     @keyframes twinkle {
@@ -134,34 +165,39 @@
       50% { opacity: 1; }
     }
 
-    /* Confetti */
+    /* Confetti (cool metallic + purple tones) */
     .confetti {
-      position: absolute;
+      position: fixed;
       top: -10vh;
-      border-radius: 2px;
+      width: 8px;
+      height: 12px;
       opacity: 0.7;
+      border-radius: 2px;
       animation: fall linear infinite;
+      z-index: 0;
     }
 
     @keyframes fall {
-      0% { transform: translateY(-10vh) rotate(0deg); }
-      100% { transform: translateY(110vh) rotate(360deg); }
+      0% { 
+        transform: translateY(-10vh) rotate(0deg);
+      }
+      100% { 
+        transform: translateY(100vh) rotate(360deg);
+      }
     }
 
-    /* Responsive */
-    @media (max-width: 600px) {
+    @media screen and (max-width: 600px) {
       h1 { font-size: 2.8rem; }
-      button.reveal-btn { font-size: 1rem; padding: 12px 20px; }
+      .reveal-btn { font-size: 1rem; padding: 12px 20px; }
       .hidden-message { font-size: 1.1rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Background Slideshow -->
   <div class="background-slideshow" id="slideshow"></div>
+  <div class="overlay"></div>
 
-  <!-- Foreground Content -->
   <div class="content">
     <h1>Happy Birthday, Sis 🐺</h1>
 
@@ -176,18 +212,18 @@
   </div>
 
   <script>
-    // ===== Slideshow Setup =====
+    // Create slideshow slides from Image 2.jpg to Image 18.jpg
     const slideshowContainer = document.getElementById('slideshow');
     const imageCount = 18;
+
     let slideIndex = 0;
 
-    // Create slide divs dynamically
-    for (let i = 1; i <= imageCount; i++) {
-      const slideDiv = document.createElement('div');
-      slideDiv.classList.add('bgSlide');
-      if (i === 1) slideDiv.classList.add('active');
-      slideDiv.style.backgroundImage = `url('images/Image${i}.jpg')`;
-      slideshowContainer.appendChild(slideDiv);
+    for (let i = 2; i <= imageCount; i++) {
+      const slide = document.createElement('div');
+      slide.classList.add('bgSlide');
+      if (i === 2) slide.classList.add('active');
+      slide.style.backgroundImage = `url('Image ${i}.jpg')`;
+      slideshowContainer.appendChild(slide);
     }
 
     const slides = document.querySelectorAll('.bgSlide');
@@ -196,57 +232,46 @@
       slides.forEach(slide => slide.classList.remove('active'));
       slides[slideIndex].classList.add('active');
       slideIndex = (slideIndex + 1) % slides.length;
-      setTimeout(showSlides, 5000); // Change every 5 seconds
+      setTimeout(showSlides, 4000);
     }
 
     showSlides();
 
-    // ===== Stars Setup =====
+    // Stars
     for (let i = 0; i < 50; i++) {
       const star = document.createElement('div');
       star.classList.add('star');
-      star.style.top = Math.random() * 100 + '%';
-      star.style.left = Math.random() * 100 + '%';
-      star.style.animationDelay = (Math.random() * 4) + 's';
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.animationDelay = Math.random() * 5 + 's';
       document.body.appendChild(star);
     }
 
-    // ===== Confetti Setup =====
+    // Confetti with varied speed and drift
     const confettiColors = ['#00bcd4', '#00e5ff', '#9e9e9e', '#4a148c', '#311b92', '#607d8b'];
-
     for (let i = 0; i < 80; i++) {
-      const confetti = document.createElement('div');
-      confetti.classList.add('confetti');
-
-      // Random size
-      confetti.style.width = (4 + Math.random() * 6) + 'px';
-      confetti.style.height = (8 + Math.random() * 12) + 'px';
-
-      // Random horizontal start position
-      confetti.style.left = (Math.random() * 100) + 'vw';
-
-      // Random color
-      confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-
-      // Random animation duration & delay
-      confetti.style.animationDuration = (5 + Math.random() * 5) + 's';
-      confetti.style.animationDelay = (Math.random() * 5) + 's';
-
-      // Random horizontal oscillation via transform origin & translateX via JS below
-      confetti.style.transformOrigin = 'center';
-
-      document.body.appendChild(confetti);
+      const conf = document.createElement('div');
+      conf.classList.add('confetti');
+      conf.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+      conf.style.left = Math.random() * 100 + 'vw';
+      conf.style.animationDuration = (5 + Math.random() * 5) + 's';
+      conf.style.animationDelay = Math.random() * 5 + 's';
+      conf.style.width = (4 + Math.random() * 6) + 'px';
+      conf.style.height = (8 + Math.random() * 10) + 'px';
+      conf.style.transform = `translateX(${Math.random() * 40 - 20}px)`;
+      document.body.appendChild(conf);
     }
 
-    // ===== Reveal Button Logic =====
+    // Reveal message & hide button
     function revealMessage() {
+      const msg = document.getElementById('birthdayMessage');
       const btn = document.getElementById('revealBtn');
-      const message = document.getElementById('birthdayMessage');
-
-      btn.style.display = 'none';
-      message.classList.add('show');
+      msg.classList.add('show');
+      btn.style.opacity = '0';
+      setTimeout(() => btn.style.display = 'none', 400);
     }
   </script>
+
 </body>
 </html>
 
