@@ -27,7 +27,7 @@
       height: 100vh;
       z-index: -1;
       overflow: hidden;
-      background: #222; /* fallback background */
+      background: #222;
     }
 
     /* Each slide */
@@ -58,13 +58,21 @@
       transition: opacity 1s ease;
     }
 
+    /* Your original glowing heading style */
     h1 {
       font-family: 'Great Vibes', cursive;
+      font-weight: 400;
       font-size: 4rem;
-      text-shadow: 0 0 20px #3a9cff, 0 0 30px #508cff, 0 0 40px #6aa3ff;
+      color: #0af;
+      text-shadow:
+        0 0 15px #0af,
+        0 0 30px #08f,
+        0 0 40px #06c,
+        0 0 60px #04a;
       margin-bottom: 0.2em;
     }
 
+    /* Message text */
     .message {
       font-size: 1.5em;
       font-weight: 600;
@@ -75,6 +83,7 @@
       white-space: pre-line;
     }
 
+    /* Quote style */
     .quote {
       font-style: italic;
       margin-top: 15px;
@@ -91,7 +100,6 @@
         font-size: 1rem;
       }
     }
-
   </style>
 </head>
 <body>
@@ -118,40 +126,16 @@
 
   <!-- Content -->
   <div class="content" role="main">
-    <h1>🎉 Happy Birthday, Sis! 🎉</h1>
-    <div class="message" id="message"></div>
+    <h1>Happy Birthday, Sis 🎉</h1>
+    <div class="message" id="message">
+      Hey sis — happy birthday! You’ve always had that mix of strength and heart that people don’t forget.  
+      No matter what comes your way, you handle it like the boss you are.  
+      Keep moving forward — the world’s better with you in it.
+    </div>
     <div class="quote" id="quote">"Wolves <em>don’t chase</em> validation — they just keep running."</div>
   </div>
 
   <script>
-    const messages = [
-      "Hey sis — happy birthday! You’ve always had that mix of strength and heart that people don’t forget.",
-      "No matter what comes your way, you handle it like the boss you are.",
-      "Keep moving forward — the world’s better with you in it."
-    ];
-
-    const messageEl = document.getElementById('message');
-    let i = 0;
-
-    function displayMessage() {
-      if (i < messages.length) {
-        const current = messages[i];
-        let idx = 0;
-        const interval = setInterval(() => {
-          messageEl.innerHTML += current[idx];
-          idx++;
-          if (idx === current.length) {
-            clearInterval(interval);
-            i++;
-            messageEl.innerHTML += "\n\n";
-            setTimeout(displayMessage, 1000);
-          }
-        }, 50);
-      }
-    }
-
-    displayMessage();
-
     // Slideshow functionality
     const slides = document.querySelectorAll('.bgSlide');
     let slideIndex = 0;
@@ -168,5 +152,6 @@
 
 </body>
 </html>
+
 
 
