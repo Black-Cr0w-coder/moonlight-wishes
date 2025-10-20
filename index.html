@@ -3,22 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Happy Birthday, Sis!</title>
+  <title>Happy Birthday, Sis 🐺</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500&display=swap');
 
-    /* Reset */
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
       overflow: hidden;
-      background: #222; /* dark background behind slideshow */
-      font-family: Arial, sans-serif;
+      font-family: 'Poppins', sans-serif;
       color: white;
+      background: transparent;
     }
 
-    /* Slideshow container */
+    /* Background slideshow container */
     .background-slideshow {
       position: fixed;
       top: 0;
@@ -27,7 +26,8 @@
       height: 100vh;
       z-index: -1;
       overflow: hidden;
-      background: #222;
+      /* Dark subtle overlay to improve image visibility */
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6));
     }
 
     /* Each slide */
@@ -35,78 +35,144 @@
       position: absolute;
       width: 100vw;
       height: 100vh;
-      background-size: contain; /* show full image */
-      background-position: center center;
       background-repeat: no-repeat;
+      background-position: center center;
+      background-size: contain; /* Full image visible */
       opacity: 0;
       transition: opacity 1.5s ease-in-out;
     }
 
+    /* Active slide visible */
     .bgSlide.active {
       opacity: 1;
       z-index: 1;
     }
 
-    /* Main content */
     .content {
       position: relative;
       z-index: 10;
-      padding: 50px 20px;
-      max-width: 900px;
-      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
       text-align: center;
-      transition: opacity 1s ease;
+      padding: 20px;
+      /* subtle text shadow for readability */
+      text-shadow: 0 0 8px rgba(0,0,0,0.9);
     }
 
-    /* Your exact original heading style */
     h1 {
       font-family: 'Great Vibes', cursive;
-      font-weight: 400;
       font-size: 4rem;
-      color: #0af;
-      text-shadow:
-        0 0 10px #0af,
-        0 0 20px #08f,
-        0 0 30px #06c,
-        0 0 40px #04a;
-      margin-bottom: 0.2em;
+      background: linear-gradient(45deg, #00d4ff, #0077ff);
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 20px #00bfff, 0 0 40px #0088ff;
+      animation: glow 3s ease-in-out infinite alternate;
+      margin-bottom: 25px;
     }
 
-    /* Message text */
-    .message {
-      font-size: 1.5em;
-      font-weight: 600;
-      line-height: 1.4;
-      color: #ccc;
-      text-shadow: 0 0 5px rgba(0,0,0,0.7);
-      min-height: 160px;
-      white-space: pre-line;
+    @keyframes glow {
+      0% { text-shadow: 0 0 15px #4a148c, 0 0 25px #0077ff; }
+      100% { text-shadow: 0 0 30px #00ffff, 0 0 50px #4a148c; }
     }
 
-    /* Quote style */
+    .reveal-btn {
+      padding: 14px 30px;
+      font-size: 1.1rem;
+      color: white;
+      background: linear-gradient(45deg, #311b92, #00c6fb);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.3s ease, opacity 0.4s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 15px rgba(75, 0, 130, 0.6);
+    }
+
+    .reveal-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 25px rgba(90, 0, 160, 0.9);
+    }
+
+    .hidden-message {
+      margin-top: 30px;
+      max-width: 650px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1.2s ease;
+      font-size: 1.4rem;
+      color: #cfd8dc;
+      line-height: 1.7;
+      display: none;
+      text-shadow: 0 0 6px rgba(0,0,0,0.7);
+    }
+
+    .hidden-message.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .quote {
       font-style: italic;
+      font-size: 1.1rem;
+      color: #9fc9ff;
       margin-top: 15px;
-      color: #7ab8ff;
-      text-shadow: 0 0 5px rgba(0,0,0,0.6);
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2.5rem;
+    /* Stars */
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      opacity: 0.8;
+      border-radius: 50%;
+      animation: twinkle 4s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    /* Confetti (metallic + purple tones) */
+    .confetti {
+      position: absolute;
+      top: -10vh; /* start above */
+      width: 8px;
+      height: 12px;
+      opacity: 0.7;
+      border-radius: 2px;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { 
+        transform: translateY(-10vh) rotate(0deg);
       }
-      .message {
-        font-size: 1rem;
+      100% { 
+        transform: translateY(100vh) rotate(360deg);
       }
+    }
+
+    @media screen and (max-width: 600px) {
+      h1 { font-size: 2.8rem; }
+      .reveal-btn { font-size: 1rem; padding: 12px 20px; }
+      .hidden-message { font-size: 1.1rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Slideshow -->
-  <div class="background-slideshow" aria-label="Background slideshow">
-    <div class="bgSlide active" style="background-image: url('Image 2.jpg');"></div>
+  <div class="background-slideshow">
+    <div class="bgSlide active" style="background-image: url('Image 1.jpg');"></div>
+    <div class="bgSlide" style="background-image: url('Image 2.jpg');"></div>
     <div class="bgSlide" style="background-image: url('Image 3.jpg');"></div>
     <div class="bgSlide" style="background-image: url('Image 4.jpg');"></div>
     <div class="bgSlide" style="background-image: url('Image 5.jpg');"></div>
@@ -114,6 +180,7 @@
     <div class="bgSlide" style="background-image: url('Image 7.jpg');"></div>
     <div class="bgSlide" style="background-image: url('Image 8.jpg');"></div>
     <div class="bgSlide" style="background-image: url('Image 9.jpg');"></div>
+    <div class="bgSlide" style="background-image: url('Image 10.jpg');"></div>
     <div class="bgSlide" style="background-image: url('Image 11.jpg');"></div>
     <div class="bgSlide" style="background-image: url('Image 12.jpg');"></div>
     <div class="bgSlide" style="background-image: url('Image 13.jpg');"></div>
@@ -124,35 +191,71 @@
     <div class="bgSlide" style="background-image: url('Image 18.jpg');"></div>
   </div>
 
-  <!-- Content -->
-  <div class="content" role="main">
-    <h1>Happy Birthday, Sis 🎉</h1>
-    <div class="message" id="message">
-      Hey sis — happy birthday! You’ve always had that mix of strength and heart that people don’t forget.  
-      No matter what comes your way, you handle it like the boss you are.  
-      Keep moving forward — the world’s better with you in it.
+  <div class="content">
+    <h1>Happy Birthday, Sis 🐺</h1>
+
+    <button class="reveal-btn" id="revealBtn" onclick="revealMessage()">
+      Click to reveal your birthday message 💬
+    </button>
+
+    <div class="hidden-message" id="birthdayMessage">
+      <p>Hey sis — happy birthday! You’ve always had that mix of strength and heart that people don’t forget. No matter what comes your way, you handle it like the boss you are. Keep moving forward — the world’s better with you in it.</p>
+      <p class="quote">"Wolves don’t chase validation — they just keep running."</p>
     </div>
-    <div class="quote" id="quote">"Wolves <em>don’t chase</em> validation — they just keep running."</div>
   </div>
 
   <script>
-    // Slideshow functionality
+    // Stars
+    for (let i = 0; i < 50; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.top = Math.random() * 100 + '%';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.animationDelay = Math.random() * 5 + 's';
+      document.body.appendChild(star);
+    }
+
+    // Confetti with varied speed and drift
+    const confettiColors = ['#00bcd4', '#00e5ff', '#9e9e9e', '#4a148c', '#311b92', '#607d8b'];
+    for (let i = 0; i < 80; i++) {
+      const conf = document.createElement('div');
+      conf.classList.add('confetti');
+      conf.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+      conf.style.left = Math.random() * 100 + 'vw';
+      conf.style.animationDuration = (5 + Math.random() * 5) + 's';
+      conf.style.animationDelay = Math.random() * 5 + 's';
+      conf.style.width = (4 + Math.random() * 6) + 'px';
+      conf.style.height = (8 + Math.random() * 10) + 'px';
+      conf.style.transform = `translateX(${Math.random() * 40 - 20}px)`;
+      document.body.appendChild(conf);
+    }
+
+    // Reveal message & hide button
+    function revealMessage() {
+      const msg = document.getElementById('birthdayMessage');
+      const btn = document.getElementById('revealBtn');
+      msg.classList.add('show');
+      btn.style.opacity = '0';
+      setTimeout(() => btn.style.display = 'none', 400);
+    }
+
+    // Slideshow logic
     const slides = document.querySelectorAll('.bgSlide');
     let slideIndex = 0;
 
     function showSlides() {
       slides.forEach(slide => slide.classList.remove('active'));
-      slides[slideIndex].classList.add('active');
       slideIndex = (slideIndex + 1) % slides.length;
+      slides[slideIndex].classList.add('active');
       setTimeout(showSlides, 4000);
     }
 
-    showSlides();
+    window.onload = () => {
+      setTimeout(showSlides, 4000);
+    };
   </script>
-
 </body>
 </html>
-
 
 
 
