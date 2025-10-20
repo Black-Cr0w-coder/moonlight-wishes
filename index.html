@@ -16,11 +16,11 @@
     body {
       min-height: 100vh;
       overflow: hidden;
-      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
       font-family: 'Poppins', sans-serif;
       color: white;
       position: relative;
       background-size: cover;
+      transition: background 1.5s ease-in-out; /* Smooth transition between backgrounds */
     }
 
     /* Purple ambient glow behind everything */
@@ -181,6 +181,24 @@
   </div>
 
   <script>
+    // Image slideshow
+    const images = [];
+    for (let i = 1; i <= 18; i++) {
+      images.push(`images/Image ${i}.jpg`); // Adjust the path if your images are in a different folder
+    }
+    let currentImageIndex = 0;
+
+    function changeBackgroundImage() {
+      document.body.style.backgroundImage = `url(${images[currentImageIndex]})`;
+      currentImageIndex = (currentImageIndex + 1) % images.length; // Loop back to the first image after the last one
+    }
+
+    // Start the slideshow with an interval
+    setInterval(changeBackgroundImage, 5000); // Change every 5 seconds
+
+    // Initial background setup
+    changeBackgroundImage();
+
     // Stars
     for (let i = 0; i < 50; i++) {
       const star = document.createElement('div');
@@ -217,5 +235,3 @@
   </script>
 </body>
 </html>
-
-
