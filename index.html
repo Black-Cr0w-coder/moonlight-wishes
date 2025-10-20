@@ -12,9 +12,9 @@
       padding: 0;
       height: 100%;
       overflow: hidden;
+      background-color: #000000; /* fallback background */
       font-family: 'Poppins', sans-serif;
       color: white;
-      background: transparent;
     }
 
     /* Background slideshow container */
@@ -26,55 +26,30 @@
       height: 100vh;
       z-index: -1;
       overflow: hidden;
+      background-color: #000000;
     }
 
-    /* Each slide styling */
+    /* Each slide */
     .bgSlide {
       position: absolute;
       width: 100vw;
       height: 100vh;
-      background-size: cover;
+      background-repeat: no-repeat;
       background-position: center center;
+      background-size: contain; /* Full image visible on any screen */
       opacity: 0;
       transition: opacity 1.5s ease-in-out;
     }
 
-    /* Show active slide */
+    /* Active slide visible */
     .bgSlide.active {
       opacity: 1;
       z-index: 1;
     }
 
-    /* Purple ambient glow behind content */
-    body::before {
-      content: '';
-      position: fixed;
-      width: 120%;
-      height: 120%;
-      top: -10%;
-      left: -10%;
-      background: radial-gradient(circle at center, rgba(50, 0, 80, 0.35), transparent 70%);
-      z-index: 0;
-      filter: blur(90px);
-      pointer-events: none;
-    }
-
-    /* Dark overlay to dim background */
-    .overlay {
-      position: fixed;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(30, 0, 45, 0.7);
-      top: 0;
-      left: 0;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    /* Main content styling */
     .content {
       position: relative;
-      z-index: 2;
+      z-index: 10;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -114,7 +89,6 @@
       justify-content: center;
       backdrop-filter: blur(10px);
       box-shadow: 0 0 15px rgba(75, 0, 130, 0.6);
-      z-index: 2;
     }
 
     .reveal-btn:hover {
@@ -132,7 +106,6 @@
       color: #cfd8dc;
       line-height: 1.7;
       display: none;
-      z-index: 2;
     }
 
     .hidden-message.show {
@@ -150,14 +123,13 @@
 
     /* Stars */
     .star {
-      position: fixed;
+      position: absolute;
       width: 2px;
       height: 2px;
       background: white;
       opacity: 0.8;
       border-radius: 50%;
       animation: twinkle 4s infinite ease-in-out;
-      z-index: 0;
     }
 
     @keyframes twinkle {
@@ -167,22 +139,21 @@
 
     /* Confetti (cool metallic + purple tones) */
     .confetti {
-      position: fixed;
-      top: -10vh;
+      position: absolute;
+      top: -10vh; /* Start slightly above the screen */
       width: 8px;
       height: 12px;
       opacity: 0.7;
       border-radius: 2px;
       animation: fall linear infinite;
-      z-index: 0;
     }
 
     @keyframes fall {
       0% { 
-        transform: translateY(-10vh) rotate(0deg);
+        transform: translateY(-10vh) rotate(0deg); /* Start above the viewport */
       }
       100% { 
-        transform: translateY(100vh) rotate(360deg);
+        transform: translateY(100vh) rotate(360deg); /* End below the viewport */
       }
     }
 
@@ -195,8 +166,26 @@
 </head>
 <body>
 
-  <div class="background-slideshow" id="slideshow"></div>
-  <div class="overlay"></div>
+  <div class="background-slideshow">
+    <div class="bgSlide active" style="background-image: url('Image 1.jpg');"></div>
+    <div class="bgSlide" style="background-image: url('Image 2.jpg');"></div>
+    <div class="bgSlide" style="background-image: url('Image 3.jpg');"></div>
+    <div class="bgSlide" style="background-image: url('Image 4.jpg');"></div>
+    <div class="bgSlide" style="background-image: url('Image 5.jpg');"></div>
+    <div class="bgSlide" style="background-image: url('Image 6.jpg');"></div>
+    <div class="bgSlide" style="background-image: url('Image 7.jpg');"></div>
+    <div class="bgSlide" style="background-image: url('Image 8.jpg');"></div>
+    <div class="bgSlide" style="background-image: url('Image 9.jpg');"></div>
+    <div class="bgSlide" style="background-image: url('Image 10.jpg');"></div>
+    <div class="bgSlide" style="background-image: url('Image 11.jpg');"></div>
+    <div class="bgSlide" style="background-image: url('Image 12.jpg');"></div>
+    <div class="bgSlide" style="background-image: url('Image 13.jpg');"></div>
+    <div class="bgSlide" style="background-image: url('Image 14.jpg');"></div>
+    <div class="bgSlide" style="background-image: url('Image 15.jpg');"></div>
+    <div class="bgSlide" style="background-image: url('Image 16.jpg');"></div>
+    <div class="bgSlide" style="background-image: url('Image 17.jpg');"></div>
+    <div class="bgSlide" style="background-image: url('Image 18.jpg');"></div>
+  </div>
 
   <div class="content">
     <h1>Happy Birthday, Sis 🐺</h1>
@@ -212,37 +201,12 @@
   </div>
 
   <script>
-    // Create slideshow slides from Image 2.jpg to Image 18.jpg
-    const slideshowContainer = document.getElementById('slideshow');
-    const imageCount = 18;
-
-    let slideIndex = 0;
-
-    for (let i = 2; i <= imageCount; i++) {
-      const slide = document.createElement('div');
-      slide.classList.add('bgSlide');
-      if (i === 2) slide.classList.add('active');
-      slide.style.backgroundImage = `url('Image ${i}.jpg')`;
-      slideshowContainer.appendChild(slide);
-    }
-
-    const slides = document.querySelectorAll('.bgSlide');
-
-    function showSlides() {
-      slides.forEach(slide => slide.classList.remove('active'));
-      slides[slideIndex].classList.add('active');
-      slideIndex = (slideIndex + 1) % slides.length;
-      setTimeout(showSlides, 4000);
-    }
-
-    showSlides();
-
     // Stars
     for (let i = 0; i < 50; i++) {
       const star = document.createElement('div');
       star.classList.add('star');
-      star.style.top = Math.random() * 100 + 'vh';
-      star.style.left = Math.random() * 100 + 'vw';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.left = Math.random() * 100 + '%';
       star.style.animationDelay = Math.random() * 5 + 's';
       document.body.appendChild(star);
     }
@@ -253,12 +217,12 @@
       const conf = document.createElement('div');
       conf.classList.add('confetti');
       conf.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-      conf.style.left = Math.random() * 100 + 'vw';
-      conf.style.animationDuration = (5 + Math.random() * 5) + 's';
-      conf.style.animationDelay = Math.random() * 5 + 's';
-      conf.style.width = (4 + Math.random() * 6) + 'px';
-      conf.style.height = (8 + Math.random() * 10) + 'px';
-      conf.style.transform = `translateX(${Math.random() * 40 - 20}px)`;
+      conf.style.left = Math.random() * 100 + 'vw'; // Random left position
+      conf.style.animationDuration = (5 + Math.random() * 5) + 's'; // Random speed
+      conf.style.animationDelay = Math.random() * 5 + 's'; // Random start delay
+      conf.style.width = (4 + Math.random() * 6) + 'px'; // Random width
+      conf.style.height = (8 + Math.random() * 10) + 'px'; // Random height
+      conf.style.transform = `translateX(${Math.random() * 40 - 20}px)`; // Random horizontal drift
       document.body.appendChild(conf);
     }
 
@@ -270,9 +234,25 @@
       btn.style.opacity = '0';
       setTimeout(() => btn.style.display = 'none', 400);
     }
-  </script>
 
+    // Slideshow logic
+    const slides = document.querySelectorAll('.bgSlide');
+    let slideIndex = 0;
+
+    function showSlides() {
+      slides.forEach(slide => slide.classList.remove('active'));
+      slideIndex = (slideIndex + 1) % slides.length;
+      slides[slideIndex].classList.add('active');
+      setTimeout(showSlides, 4000);
+    }
+
+    // Start slideshow after page loads
+    window.onload = () => {
+      setTimeout(showSlides, 4000);
+    };
+  </script>
 </body>
 </html>
+
 
 
