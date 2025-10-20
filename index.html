@@ -12,9 +12,9 @@
       padding: 0;
       height: 100%;
       overflow: hidden;
-      background-color: #000000; /* fallback background */
       font-family: 'Poppins', sans-serif;
       color: white;
+      background: transparent;
     }
 
     /* Background slideshow container */
@@ -26,7 +26,8 @@
       height: 100vh;
       z-index: -1;
       overflow: hidden;
-      background-color: #000000;
+      /* Dark subtle overlay to improve image visibility */
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6));
     }
 
     /* Each slide */
@@ -36,7 +37,7 @@
       height: 100vh;
       background-repeat: no-repeat;
       background-position: center center;
-      background-size: contain; /* Full image visible on any screen */
+      background-size: contain; /* Full image visible */
       opacity: 0;
       transition: opacity 1.5s ease-in-out;
     }
@@ -57,6 +58,8 @@
       height: 100vh;
       text-align: center;
       padding: 20px;
+      /* subtle text shadow for readability */
+      text-shadow: 0 0 8px rgba(0,0,0,0.9);
     }
 
     h1 {
@@ -106,6 +109,7 @@
       color: #cfd8dc;
       line-height: 1.7;
       display: none;
+      text-shadow: 0 0 6px rgba(0,0,0,0.7);
     }
 
     .hidden-message.show {
@@ -137,10 +141,10 @@
       50% { opacity: 1; }
     }
 
-    /* Confetti (cool metallic + purple tones) */
+    /* Confetti (metallic + purple tones) */
     .confetti {
       position: absolute;
-      top: -10vh; /* Start slightly above the screen */
+      top: -10vh; /* start above */
       width: 8px;
       height: 12px;
       opacity: 0.7;
@@ -150,10 +154,10 @@
 
     @keyframes fall {
       0% { 
-        transform: translateY(-10vh) rotate(0deg); /* Start above the viewport */
+        transform: translateY(-10vh) rotate(0deg);
       }
       100% { 
-        transform: translateY(100vh) rotate(360deg); /* End below the viewport */
+        transform: translateY(100vh) rotate(360deg);
       }
     }
 
@@ -217,12 +221,12 @@
       const conf = document.createElement('div');
       conf.classList.add('confetti');
       conf.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-      conf.style.left = Math.random() * 100 + 'vw'; // Random left position
-      conf.style.animationDuration = (5 + Math.random() * 5) + 's'; // Random speed
-      conf.style.animationDelay = Math.random() * 5 + 's'; // Random start delay
-      conf.style.width = (4 + Math.random() * 6) + 'px'; // Random width
-      conf.style.height = (8 + Math.random() * 10) + 'px'; // Random height
-      conf.style.transform = `translateX(${Math.random() * 40 - 20}px)`; // Random horizontal drift
+      conf.style.left = Math.random() * 100 + 'vw';
+      conf.style.animationDuration = (5 + Math.random() * 5) + 's';
+      conf.style.animationDelay = Math.random() * 5 + 's';
+      conf.style.width = (4 + Math.random() * 6) + 'px';
+      conf.style.height = (8 + Math.random() * 10) + 'px';
+      conf.style.transform = `translateX(${Math.random() * 40 - 20}px)`;
       document.body.appendChild(conf);
     }
 
@@ -246,13 +250,10 @@
       setTimeout(showSlides, 4000);
     }
 
-    // Start slideshow after page loads
     window.onload = () => {
       setTimeout(showSlides, 4000);
     };
   </script>
 </body>
 </html>
-
-
 
